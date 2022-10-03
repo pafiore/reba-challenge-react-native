@@ -1,9 +1,10 @@
 import React from 'react';
+import { Image, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import ListScreen from '../screens/ListScreen';
 import DetailScreen from '../screens/DetailScreen';
-import { RootStackParamList } from './types';
+import { RootStackParamList } from '../types';
 
 
 
@@ -27,8 +28,12 @@ const RootStack = () => {
                             title: t('lblList'),
                             headerTintColor: "white",
                             headerStyle: {
-                            backgroundColor: '#4262fe',
-                    },
+                                backgroundColor: '#4262fe',
+                            },
+                            headerRight: () => (
+                                <Image source={require('../assets/images/reba-logo-03.png')} 
+                                    resizeMode="contain" style={styles.imageHeaderList} />
+                            ),
                 }} 
             />
             
@@ -41,7 +46,6 @@ const RootStack = () => {
                             headerTintColor: "white",
                             headerStyle: {
                                 backgroundColor: '#4262fe',
-                                
                             },
                         }} 
             />
@@ -49,5 +53,13 @@ const RootStack = () => {
         </Stack.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    imageHeaderList: {
+        width: 70, 
+        height:50
+    },
+
+  });
 
 export default RootStack;
