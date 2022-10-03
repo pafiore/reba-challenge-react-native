@@ -18,7 +18,15 @@ const RootStack = () => {
     const { t } = useTranslation();
 
     return (
-        <Stack.Navigator initialRouteName="ListScreen" >
+        <Stack.Navigator 
+            initialRouteName="ListScreen" 
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#4262fe',
+                },
+                headerTintColor: "white",
+              }}
+        >
             
             {/* LIST */}
             <Stack.Screen 
@@ -26,10 +34,6 @@ const RootStack = () => {
                 component={ListScreen} 
                 options={{ 
                             title: t('lblList'),
-                            headerTintColor: "white",
-                            headerStyle: {
-                                backgroundColor: '#4262fe',
-                            },
                             headerRight: () => (
                                 <Image source={require('../assets/images/reba-logo-03.png')} 
                                     resizeMode="contain" style={styles.imageHeaderList} />
@@ -43,10 +47,6 @@ const RootStack = () => {
                 component={DetailScreen} 
                 options={{ 
                             title: t('lblDetail'),
-                            headerTintColor: "white",
-                            headerStyle: {
-                                backgroundColor: '#4262fe',
-                            },
                         }} 
             />
             
