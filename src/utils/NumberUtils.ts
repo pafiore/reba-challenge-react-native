@@ -1,6 +1,6 @@
 
 // Apply thousands separator by "." and decimals separator by ","
-export const thousandsAndDecimalSeparatorFormat = (numberToFormat: number) => {
+export const thousandsAndDecimalSeparatorFormat = (numberToFormat: number): string => {
 	let result = '';
 	let sign = '';
 	let number = numberToFormat.toString().split('.')[0];

@@ -3,12 +3,10 @@
     "lblAppName": "Reba Challenge",
     "lblList": "Lista",
     "lblDetail": "Detalle",
-
-
-    
-
-
-
+    "lblPrice": "Precio",
+    "lblStock": "Stock",
+    "lblBrand": "Marca",
+    "lblCategory": "Categoría",
 
     "msgCheckConnectionInconRefresh": "Por favor, revise su conexión a Internet. Presione el botón de actualizar para reintentar.",
     "msgGenericErrorShort": "Se ha producido un error",
@@ -16,7 +14,4 @@
     "msgItemListEmpty": "No se han encontrado elementos",
     "msgFailServerConnection": "No se pudo conectar al servidor",
     "msgTouchToRefresh": "Toque para volver a intentarlo"
-
-
-    
 }

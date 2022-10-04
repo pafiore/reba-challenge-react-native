@@ -94,10 +94,11 @@ const styles = StyleSheet.create({
       color: '#02d474'
     },
     iconFavorite: {
-        fontSize:25
+        fontSize:28,
+        color: '#02d474'
     },
     iconFavoriteSelected: {
-        fontSize:25,
+        fontSize:28,
         color: '#02d474'
     }
   });

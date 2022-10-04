@@ -3,7 +3,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Item, ListScreenNavigationProp } from '../types';
-import ListItem from '../components/ListItem';
+import ListCustomItem from '../components/ListCustomItem';
 import ListEmpty from '../components/ListEmpty';
 import SpinnerInApp from '../components/SpinnerInApp';
 import ErrorConnection from '../components/ErrorConnection';
@@ -30,15 +30,15 @@ const ListScreen = () => {
         fetch('https://dummyjson.com/products')
         .then(res => res.json())
         .then(json => {
-            console.log('SUCCESS')
+            // console.log('SUCCESS')
             // console.log(json)
             setItemList(json.products);
             setIsError(false);
             setIsLoading(false);
         })
         .catch(err => {
-            console.log('ERROR')
-            console.log(err)
+            // console.log('ERROR')
+            // console.log(err)
             setIsError(true);
             setIsLoading(false);
         })
@@ -62,7 +62,7 @@ const ListScreen = () => {
     }, [])
 
 
-    const renderItem: ListRenderItem<Item> = ( { item } ) => ( <ListItem item={item} onPress={handlerOnPressItem} /> )
+    const renderItem: ListRenderItem<Item> = ( { item } ) => ( <ListCustomItem item={item} onPress={handlerOnPressItem} /> )
 
     const keyExtractor = useCallback( ( item: Item ) => item.id.toString(), [] );
 
