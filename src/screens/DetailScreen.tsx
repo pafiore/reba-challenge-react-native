@@ -9,22 +9,14 @@ import Slider from '../components/Slider';
 import * as Animatable from 'react-native-animatable';
 import ItemFeature from '../components/ItemFeature';
 import { thousandsAndDecimalSeparatorFormat } from '../utils/NumberUtils';
+import useFetch from '../hooks/useFetch';
 
 
 const DetailScreen = () => {
 
     const route = useRoute<DetailsScreenRouteProp>();
     const { itemID }  = route.params;
-
     const { t } = useTranslation();
-    const [itemDetail, setItemDetail] = useState<Item>();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [isError, setIsError] = useState<boolean>(false);
-
-
-    useEffect( () => {
-        getItemDetail();
-    }, [])
 
 
     // COMENTARIO: dado que toda la información necesaria para visualizar el detalle de un ITEM ya la obtuvimos
@@ -32,23 +24,11 @@ const DetailScreen = () => {
     // el objeto ITEM con todos sus campos, y asi mejorar la performance de la app evitando una nueva petición al Server.
     // En este caso - y solo para fines prácticos a los efectos de cumplir con los lineamientos del challenge - hacemos un 
     // fetch del EndPoint que obtiene la información de un ITEM en particular
-    const getItemDetail = () => {
-        fetch(`https://dummyjson.com/products/${itemID}`)
-        .then(res => res.json())
-        .then(json => {
-            setItemDetail(json);
-            setIsError(false);
-            setIsLoading(false);
-        })
-        .catch(err => {
-            setIsError(true);
-            setIsLoading(false);
-        })
-    }
+    const [itemDetail, isLoading, isError, retryApiCall] = useFetch<Item>(`https://dummyjson.com/products/${itemID}`);
 
 
     if (isLoading) return (<SpinnerInApp/>)
-    if (isError) return <ErrorConnection onPress={ () => getItemDetail()} />
+    if (isError) return <ErrorConnection onPress={ () => retryApiCall((prev) => !prev) } />
 
 
     return (

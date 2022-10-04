@@ -7,47 +7,19 @@ import ListCustomItem from '../components/ListCustomItem';
 import ListEmpty from '../components/ListEmpty';
 import SpinnerInApp from '../components/SpinnerInApp';
 import ErrorConnection from '../components/ErrorConnection';
+import useFetch from '../hooks/useFetch';
 
 
 const ListScreen = () => {
-
-    console.log('Ingreso a ListScreen')
     
     const navigation = useNavigation<ListScreenNavigationProp>();
-
     const { t } = useTranslation();
-    const [itemList, setItemList] = useState<Item[]>([]);
-    const [isError, setIsError] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-
-
-    useEffect(() => {
-        getListItem()
-    },[])
-
-
-    const getListItem = () => {
-        fetch('https://dummyjson.com/products')
-        .then(res => res.json())
-        .then(json => {
-            // console.log('SUCCESS')
-            // console.log(json)
-            setItemList(json.products);
-            setIsError(false);
-            setIsLoading(false);
-        })
-        .catch(err => {
-            // console.log('ERROR')
-            // console.log(err)
-            setIsError(true);
-            setIsLoading(false);
-        })
-    }
+    const [itemList, isLoading, isError, retryApiCall] = useFetch<Item[]>('https://dummyjson.com/products');
 
 
     const renderListEmptyComponent = () => {
         // If there are no items
-        if (itemList.length === 0 && !isLoading && !isError) {
+        if (itemList?.length === 0 && !isLoading && !isError) {
             return <ListEmpty message={t('msgItemListEmpty')} /> ;
         }
         else {
@@ -67,11 +39,8 @@ const ListScreen = () => {
     const keyExtractor = useCallback( ( item: Item ) => item.id.toString(), [] );
 
 
-    // If the API call still is "loding" show spinner
     if (isLoading) return ( <SpinnerInApp /> )
-
-    // If the API call response with error
-    if (isError) return ( <ErrorConnection onPress={ () => getListItem()} /> )
+    if (isError) return ( <ErrorConnection onPress={ () => retryApiCall((prev) => !prev) } /> )
 
     
     return (
