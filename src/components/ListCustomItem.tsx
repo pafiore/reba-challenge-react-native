@@ -3,23 +3,55 @@ import {Text, Image, StyleSheet, View, TouchableWithoutFeedback, Dimensions} fro
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { thousandsAndDecimalSeparatorFormat } from '../utils/NumberUtils';
 import { Item } from '../types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FAVORITES } from '../constants/localStorage';
 
 
 interface ListItemProps {
     item: Item;
+    isFavorite: boolean;
     onPress: (id: number) => void;
 }
 
 
-const ListItem = ({item, onPress = () => null}: ListItemProps) => {
+const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
 
-    // console.log('ITEM ID: ' + item.id);
+    const [favorite, setFavorite] = useState<boolean>(isFavorite)
 
-    const [favorite, setFavorite] = useState<boolean>(false)
-
-    const onPressFavorite = (itemID: number): void => {
-        setFavorite(!favorite)
+    const onPressFavorite = async (itemID: number) => {
         console.log(itemID)
+
+        let favList: number[] = []
+
+        try {
+            // Obtengo los favoritos almacenados localmente
+            let favListString = await AsyncStorage.getItem(FAVORITES);
+            if (favListString) {
+                favList = JSON.parse(favListString)
+            } 
+
+            // Si el estado anterior es Favorito, lo quito del array
+            if(favorite) {
+                const index = favList.indexOf(itemID);
+                if (index > -1) { 
+                    favList.splice(index, 1)
+                }
+            }
+            else {
+                if(!favList.includes(itemID)) {
+                    favList.push(itemID)
+                }
+            }
+
+            // Agrego al storage el favorito
+            await AsyncStorage.setItem(FAVORITES, JSON.stringify(favList));
+
+            console.log('onPressFavorite', JSON.stringify(favList))
+            setFavorite(!favorite)
+        }
+        catch(err) {
+            console.log(err)
+        }
     }
   
     return (
@@ -29,7 +61,7 @@ const ListItem = ({item, onPress = () => null}: ListItemProps) => {
                 <View style={styles.innerContainer}>
                     
                     <View style={styles.titleIconContainer}>
-                        <Text style={styles.textTitle} numberOfLines={1}>{item.title}</Text>
+                        <Text style={styles.textTitle} numberOfLines={1}>{item.title} - ID:{item.id}</Text>
                         {
                             favorite
                             ?

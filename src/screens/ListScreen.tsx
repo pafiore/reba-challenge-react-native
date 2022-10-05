@@ -8,18 +8,65 @@ import ListEmpty from '../components/ListEmpty';
 import SpinnerInApp from '../components/SpinnerInApp';
 import ErrorConnection from '../components/ErrorConnection';
 import useFetch from '../hooks/useFetch';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FAVORITES } from '../constants/localStorage';
 
 
 const ListScreen = () => {
+
+    console.log('ListScreen')
     
     const navigation = useNavigation<ListScreenNavigationProp>();
     const { t } = useTranslation();
-    const [itemList, isLoading, isError, retryApiCall] = useFetch<Item[]>('https://dummyjson.com/products');
+    const [data, isLoading, isError, retryApiCall] = useFetch<Item[]>('https://dummyjson.com/products');
+    const [itemListSorted, setItemListSorted] = useState<Item[]>()
+    const [favoriteIDList, setFavoriteIDList] = useState<number[]>()
 
+    
+    useEffect( () => {
+
+        console.log('useEffect - data')
+
+        // AsyncStorage.removeItem(FAVORITES)
+
+        const getFavorites = async () => {
+
+            let favList: number[] = []
+
+            try {
+                // Obtengo los ID-s Favoritos desde local storage
+                let favListString = await AsyncStorage.getItem(FAVORITES);
+                if (favListString) {
+                    favList = JSON.parse(favListString)
+                } 
+                console.log('favList', favList)
+                setFavoriteIDList(favList)
+            }
+            catch(err) {
+                console.log(err)
+            }
+           
+            // Items Favoritos
+            const favoriteItemList: Item[]  = data?.filter((item) => favList.includes(item.id))!
+
+            // Items NO Favoritos
+            const notFavoriteItemList: Item[] = data?.filter((item) => !favList.includes(item.id))!
+            
+            // Items ordenados con el sguiente criterio: Favoritos + NO Favoritos
+            setItemListSorted(favoriteItemList?.concat(notFavoriteItemList))
+
+            
+        }
+        
+        if(data) {
+            getFavorites()
+        }
+    }, [data])
+    
 
     const renderListEmptyComponent = () => {
         // If there are no items
-        if (itemList?.length === 0 && !isLoading && !isError) {
+        if (itemListSorted?.length === 0 && !isLoading && !isError) {
             return <ListEmpty message={t('msgItemListEmpty')} /> ;
         }
         else {
@@ -32,9 +79,22 @@ const ListScreen = () => {
         console.log('handlerOnPressItem()  --  item.id: ' + itemID);
         navigation.navigate('DetailScreen', {itemID});
     }, [])
+    
 
-
-    const renderItem: ListRenderItem<Item> = ( { item } ) => ( <ListCustomItem item={item} onPress={handlerOnPressItem} /> )
+    const renderItem: ListRenderItem<Item> = ( { item } ) => {
+        if(favoriteIDList) {
+            return ( 
+                <ListCustomItem 
+                    item={item} 
+                    isFavorite={favoriteIDList.includes(item.id) ? true : false}
+                    onPress={handlerOnPressItem} 
+                /> 
+            )
+        }
+        else {
+            return null
+        }
+    } 
 
     const keyExtractor = useCallback( ( item: Item ) => item.id.toString(), [] );
 
@@ -46,7 +106,7 @@ const ListScreen = () => {
     return (
         <SafeAreaView>
             <FlatList
-                data={itemList}
+                data={itemListSorted}
                 renderItem={ renderItem }
                 keyExtractor={keyExtractor}
                 ListEmptyComponent={ renderListEmptyComponent }
