@@ -1,14 +1,23 @@
-/**
- * @format
- */
 
-import 'react-native';
+// import 'react-native';
 import React from 'react';
-import App from '../src/App';
+import SpinnerInApp from '../src/components/SpinnerInApp';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+
+it('renders a SpinnerInApp using Snapshots', () => {
+    // expect(renderer.create(
+    //   <SpinnerInApp />
+    // )).toMatchSnapshot();
+
+
+
+    const tree = renderer.create(<SpinnerInApp />).toJSON();
+    expect(tree).toMatchSnapshot();
+
 });
+
+
+
