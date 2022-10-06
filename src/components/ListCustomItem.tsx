@@ -57,16 +57,21 @@ const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
                 <Image source={{uri: item.thumbnail}} style={styles.image} />
                 <View style={styles.innerContainer}>
                     
-                    <View style={styles.titleIconContainer}>
+                        {/* TITLE */}
                         <Text style={styles.textTitle} numberOfLines={1}>{item.title}</Text>
-                        {
-                            favorite
-                            ?
-                            <Icon name='heart' style={styles.iconFavoriteSelected} onPress={() => onPressFavorite(item.id)} />
-                            :
-                            <Icon name='heart-o' style={styles.iconFavorite} onPress={() => onPressFavorite(item.id)} />
-                        }
-                    </View>
+                        
+                        {/* ICON */}
+                        <View style={styles.iconContainer}>
+                                <TouchableWithoutFeedback onPress={() => onPressFavorite(item.id)}>
+                                {
+                                    favorite
+                                    ?
+                                    <Icon name='heart' style={styles.iconFavoriteSelected} />
+                                    :
+                                    <Icon name='heart-o' style={styles.iconFavorite} />
+                                }
+                                </TouchableWithoutFeedback>
+                        </View>
 
                     <Text style={styles.textDescription} numberOfLines={1}>{item.description}</Text>
                     <Text style={styles.textPrice}>${thousandsAndDecimalSeparatorFormat(item.price)}</Text>
@@ -101,15 +106,20 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 10,
       borderBottomLeftRadius: 10,
     },
-    titleIconContainer: {
+    iconContainer: {
         flexDirection:'row', 
         justifyContent: 'space-between', 
-        paddingRight:10
+        position:'absolute',
+        right:0,
+        paddingRight:10,
+        marginTop:-5,
+        marginRight:-5
     },
     textTitle:{
       fontSize:17,
       fontWeight: 'bold',
       color: GLOBAL_STYLE.primaryColor,
+      paddingRight:50
     },
     textDescription:{
       paddingRight: 20,
@@ -123,11 +133,11 @@ const styles = StyleSheet.create({
       color: GLOBAL_STYLE.secondaryColor
     },
     iconFavorite: {
-        fontSize:28,
-        color: GLOBAL_STYLE.secondaryColor
+        fontSize:30,
+        color: GLOBAL_STYLE.secondaryColor,
     },
     iconFavoriteSelected: {
-        fontSize:28,
+        fontSize:30,
         color: GLOBAL_STYLE.secondaryColor
     }
   });
