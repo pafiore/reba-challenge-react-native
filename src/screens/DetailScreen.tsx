@@ -1,15 +1,16 @@
-import { SafeAreaView, ScrollView, Text, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { SafeAreaView, ScrollView, Text, StyleSheet, Image } from 'react-native'
+import React from 'react'
 import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import * as Animatable from 'react-native-animatable';
 import { DetailsScreenRouteProp, Item } from '../types';
 import SpinnerInApp from '../components/SpinnerInApp';
 import ErrorConnection from '../components/ErrorConnection';
 import Slider from '../components/Slider';
-import * as Animatable from 'react-native-animatable';
 import ItemFeature from '../components/ItemFeature';
 import { thousandsAndDecimalSeparatorFormat } from '../utils/NumberUtils';
 import useFetch from '../hooks/useFetch';
+import { END_POINT, GLOBAL_STYLE } from '../constants';
 
 
 const DetailScreen = () => {
@@ -19,12 +20,12 @@ const DetailScreen = () => {
     const { t } = useTranslation();
 
 
-    // COMENTARIO: dado que toda la información necesaria para visualizar el detalle de un ITEM ya la obtuvimos
-    // con el EndPoint que invocamos en la pantalla "ListScreen", podríamos haber pasado a la pantalla "DetailScreen"
-    // el objeto ITEM con todos sus campos, y asi mejorar la performance de la app evitando una nueva petición al Server.
+    // COMENTARIO: dado que toda la información necesaria para visualizar el detalle de un ITEM ya la obtuvimos con el EndPoint
+    // que invocamos en la pantalla "ListScreen", podríamos haber pasado como parámetro a la pantalla "DetailScreen" el objeto
+    // ITEM con todos sus campos, y asi mejorar la performance de la app evitando una nueva petición al Server.
     // En este caso - y solo para fines prácticos a los efectos de cumplir con los lineamientos del challenge - hacemos un 
     // fetch del EndPoint que obtiene la información de un ITEM en particular
-    const [itemDetail, isLoading, isError, retryApiCall] = useFetch<Item>(`https://dummyjson.com/products/${itemID}`);
+    const [itemDetail, isLoading, isError, retryApiCall] = useFetch<Item>(`${END_POINT}/${itemID}`);
 
 
     if (isLoading) return (<SpinnerInApp/>)
@@ -90,6 +91,10 @@ const DetailScreen = () => {
                     />
                 </Animatable.View>
 
+                <Animatable.View animation="zoomIn" style={styles.imgContainerBrand}>
+                    <Image source={require('../assets/images/reba-logo-01.png')} style={styles.imgBrand} />
+                </Animatable.View>
+
             </ScrollView>
         </SafeAreaView>
     )
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize:22,
         fontWeight:'bold',
-        color: '#4262fe',
+        color: GLOBAL_STYLE.primaryColor,
         paddingTop:10,
         paddingLeft:5,
         paddingRight:5
@@ -115,6 +120,15 @@ const styles = StyleSheet.create({
         fontSize:15,
         paddingBottom:10,
     },
+    imgContainerBrand: {
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:20
+    },
+    imgBrand: {
+        width: 170,
+        height: 80,
+    }
 });
 
 

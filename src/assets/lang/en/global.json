@@ -1,7 +1,17 @@
 
 {
+    "lblAppName": "Reba Challenge",
     "lblList": "List",
-    "lblDetail": "Detail"
-    
+    "lblDetail": "Detail",
+    "lblPrice": "Price",
+    "lblStock": "Stock",
+    "lblBrand": "Brand",
+    "lblCategory": "Category",
 
+    "msgCheckConnectionInconRefresh": "Please check your internet connection. Press the refresh button to retry.",
+    "msgGenericErrorShort": "An error has occurred",
+    "msgGenericError": "An error has occurred, please try again.",
+    "msgItemListEmpty": "No items found",
+    "msgFailServerConnection": "Could not connect to server",
+    "msgTouchToRefresh": "Tap to try again"
 }

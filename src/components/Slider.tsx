@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions, Image, Text, NativeScrollEvent } from 'react-native';
+import { GLOBAL_STYLE } from '../constants';
 
 
 const WIDTH = Dimensions.get('window').width;
@@ -11,8 +12,6 @@ interface SliderProps {
 
 
 const Slider = ( {imageList = [] }: SliderProps ) => {
-
-    // console.log('Ingreso a SLIDER')
 
     const [imgActiveIndex, setImgActiveIndex] = useState(0);
     const scrollViewRef = useRef(null);
@@ -56,7 +55,6 @@ const Slider = ( {imageList = [] }: SliderProps ) => {
                 )}
             </ScrollView>
 
-
             <View style={styles.wrapDot}>
                 { imageList.map( (urlImage, index) => 
                     <Text
@@ -67,7 +65,6 @@ const Slider = ( {imageList = [] }: SliderProps ) => {
                     </Text>
                 )}
             </View>
-
 
         </View>
             
@@ -89,15 +86,15 @@ const styles = StyleSheet.create({
     },
     dotActive: {
         margin:3,
-        color: '#4262fe',
-        textShadowColor: '#02d474',
+        color: GLOBAL_STYLE.primaryColor,
+        textShadowColor: GLOBAL_STYLE.secondaryColor,
         textShadowOffset: {width: 0, height: 0},
         textShadowRadius: 4
     },
     dot: {
         margin:3,
         color: 'white',
-        textShadowColor: '#02d474',
+        textShadowColor: GLOBAL_STYLE.secondaryColor,
         textShadowOffset: {width: 0, height: 0},
         textShadowRadius: 4
     }

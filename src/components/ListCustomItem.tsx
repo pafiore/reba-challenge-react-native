@@ -1,10 +1,10 @@
 import React, { memo, useState } from 'react';
-import {Text, Image, StyleSheet, View, TouchableWithoutFeedback, Dimensions} from 'react-native';
+import {Text, Image, StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { thousandsAndDecimalSeparatorFormat } from '../utils/NumberUtils';
 import { Item } from '../types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FAVORITES } from '../constants/localStorage';
+import { FAVORITES, GLOBAL_STYLE } from '../constants';
 
 
 interface ListItemProps {
@@ -19,7 +19,6 @@ const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
     const [favorite, setFavorite] = useState<boolean>(isFavorite)
 
     const onPressFavorite = async (itemID: number) => {
-        console.log(itemID)
 
         let favList: number[] = []
 
@@ -45,8 +44,6 @@ const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
 
             // Agrego al storage el favorito
             await AsyncStorage.setItem(FAVORITES, JSON.stringify(favList));
-
-            console.log('onPressFavorite', JSON.stringify(favList))
             setFavorite(!favorite)
         }
         catch(err) {
@@ -61,7 +58,7 @@ const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
                 <View style={styles.innerContainer}>
                     
                     <View style={styles.titleIconContainer}>
-                        <Text style={styles.textTitle} numberOfLines={1}>{item.title} - ID:{item.id}</Text>
+                        <Text style={styles.textTitle} numberOfLines={1}>{item.title}</Text>
                         {
                             favorite
                             ?
@@ -112,7 +109,7 @@ const styles = StyleSheet.create({
     textTitle:{
       fontSize:17,
       fontWeight: 'bold',
-      color: '#4262fe',
+      color: GLOBAL_STYLE.primaryColor,
     },
     textDescription:{
       paddingRight: 20,
@@ -123,14 +120,14 @@ const styles = StyleSheet.create({
     textPrice:{
       fontSize:16,
       fontWeight: 'bold',
-      color: '#02d474'
+      color: GLOBAL_STYLE.secondaryColor
     },
     iconFavorite: {
         fontSize:28,
-        color: '#02d474'
+        color: GLOBAL_STYLE.secondaryColor
     },
     iconFavoriteSelected: {
         fontSize:28,
-        color: '#02d474'
+        color: GLOBAL_STYLE.secondaryColor
     }
   });

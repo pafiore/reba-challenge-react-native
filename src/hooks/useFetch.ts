@@ -8,8 +8,6 @@ const useFetch = <T>(url: string) => {
     const [apiCall, retryApiCall] = useState<boolean>(false);
 
 	useEffect(() => {
-
-        console.log('useEffect - FETCH')
         
         fetch(url)
             .then(res => res.json())

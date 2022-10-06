@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Fontisto';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ const ErrorConnection = ({ onPress = () => null }: ErrorConnectionProps) => {
                 <Text style={styles.messaggeRefreshScreen}>{t('msgCheckConnectionInconRefresh')}</Text>
             </Animatable.View>
 
-            {/* LOGO APP */}
+            {/* LOGO */}
             <Animatable.View animation="zoomIn" style={styles.imageLogoContainer}>
                 <Image source={require('../assets/images/reba-logo-01.png')} style={styles.imageLogo} />
             </Animatable.View>

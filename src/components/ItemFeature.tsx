@@ -1,7 +1,8 @@
-import { ListItem } from '@rneui/themed';
 import React from 'react';
-import {Text, Image, StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
+import { ListItem } from '@rneui/themed';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { GLOBAL_STYLE } from '../constants';
 
 
 interface ItemFeatureProps {
@@ -14,17 +15,12 @@ interface ItemFeatureProps {
 const ItemFeature = ({icon, label, value}: ItemFeatureProps) => {
   
     return (
-        <ListItem 
-            // containerStyle={styles.test} 
-            bottomDivider
-        >
-
+        <ListItem bottomDivider>
             <Icon name={icon} style={styles.icon} />
             <ListItem.Content>
-                <ListItem.Title style={{fontWeight:'normal'}}>{label}</ListItem.Title>
+                <ListItem.Title>{label}</ListItem.Title>
             </ListItem.Content>
-            <Text style={{fontSize: 16, }}>{value}</Text>
-
+            <Text style={styles.value}>{value}</Text>
         </ListItem>
     );
 }
@@ -33,7 +29,10 @@ const ItemFeature = ({icon, label, value}: ItemFeatureProps) => {
 const styles = StyleSheet.create({
     icon: {
         fontSize:20,
-        color: '#02d474'
+        color: GLOBAL_STYLE.secondaryColor
+    },
+    value: {
+        fontSize: 16,
     }
 
 });

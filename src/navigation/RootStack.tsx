@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ListScreen from '../screens/ListScreen';
 import DetailScreen from '../screens/DetailScreen';
 import { RootStackParamList } from '../types';
-
-
+import { GLOBAL_STYLE } from '../constants';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,7 +21,7 @@ const RootStack = () => {
             initialRouteName="ListScreen" 
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: '#4262fe',
+                    backgroundColor: GLOBAL_STYLE.primaryColor,
                 },
                 headerTintColor: "white",
               }}
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
         width: 70, 
         height:50
     },
-
   });
 
 export default RootStack;
