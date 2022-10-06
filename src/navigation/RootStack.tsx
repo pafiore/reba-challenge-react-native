@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
+import SplashScreen from 'react-native-splash-screen';
 import ListScreen from '../screens/ListScreen';
 import DetailScreen from '../screens/DetailScreen';
 import { RootStackParamList } from '../types';
@@ -15,6 +16,15 @@ const RootStack = () => {
     console.log('Ingreso a RootStack');
     
     const { t } = useTranslation();
+
+    useLayoutEffect(() => {
+        // setTimeout allow delay render because userInfo.token is asynchronous and its value is null
+        setTimeout( function() 
+        { 
+            SplashScreen.hide(); 
+        }, 1000);
+        
+    }, []);
 
     return (
         <Stack.Navigator 
