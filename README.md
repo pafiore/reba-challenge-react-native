@@ -27,7 +27,7 @@ Ver línea 44 de dicho archivo:<br />
 
 |Tarea| Status |
 |--|:--:|
-| Usar componentes funcionales y hooks | :heavy_check_mark:   |
+| Componentes funcionales y hooks       | :heavy_check_mark:   |
 | Crear al menos un custom hook        | :heavy_check_mark:   |
 | Usar React Navigation v5 o v6        | :heavy_check_mark:   |
 | Usar typescript                      | :heavy_check_mark:   |
@@ -36,8 +36,8 @@ Ver línea 44 de dicho archivo:<br />
 
 |Tarea| Status |
 |--|:--:|
-| Crear al menos un test unitario en Jest           | :heavy_check_mark:   |
-| Crear una opción para marcar/desmarcar elementos  | :heavy_check_mark:   |
-| Preservar elementos seleccionados entre sesiones  | :heavy_check_mark:   |
+| Crear al menos un test unitario en Jest      | :heavy_check_mark:   |
+| Opción para marcar/desmarcar elementos       | :heavy_check_mark:   |
+| Preservar items seleccionados entre sesiones | :heavy_check_mark:   |
 
 </td></tr> </table>
