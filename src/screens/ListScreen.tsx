@@ -90,8 +90,8 @@ const ListScreen = () => {
     const keyExtractor = useCallback( ( item: Item ) => item.id.toString(), [] );
 
 
-    if (isLoading || (!isLoading && !favoriteIDList)) return ( <SpinnerInApp /> )
     if (isError) return ( <ErrorConnection onPress={ () => retryApiCall((prev) => !prev) } /> )
+    if (isLoading || (!isLoading && !favoriteIDList)) return ( <SpinnerInApp /> )
 
     
     return (

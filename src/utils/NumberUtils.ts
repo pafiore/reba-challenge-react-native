@@ -1,30 +1,29 @@
 
 // Apply thousands separator by "." and decimals separator by ","
 export const thousandsAndDecimalSeparatorFormat = (numberToFormat: number): string => {
-	let result = '';
-	let sign = '';
-	let number = numberToFormat.toString().split('.')[0];
+	let result: string = '';
+	let sign: string = '';
+	let number:string = numberToFormat.toString().split('.')[0];
 	
-	if(number.indexOf('-') != -1)
+	if(number.indexOf('-') !== -1)
 	{
-		let sign = '-';
+		sign = '-';
 		number = number.replace('-', '');
 	}
 	
-	//let decimal = (numberToFormat.toString().split('.')[1]) == undefined ? '00' : numberToFormat.toString().split('.')[1];
-	let decimal;
+	let decimalString: string;
 	
 	if(numberToFormat.toString().split('.')[1] == undefined)
 	{
-		decimal = '00'
+		decimalString = '00'
 	}
 	else if(numberToFormat.toString().split('.')[1].length == 1)
 	{
-		decimal = numberToFormat.toString().split('.')[1] + '0';
+		decimalString = numberToFormat.toString().split('.')[1] + '0';
 	}
 	else
 	{
-		decimal = numberToFormat.toString().split('.')[1];
+		decimalString = numberToFormat.toString().split('.')[1];
 	}
 		
 	while( number.length > 3 )
@@ -33,6 +32,6 @@ export const thousandsAndDecimalSeparatorFormat = (numberToFormat: number): stri
 		 number = number.substring(0, number.length - 3);
 	}
 	
-	result = sign + number + result + ',' + decimal;
+	result = sign + number + result + ',' + decimalString;
 	return result;
 }
