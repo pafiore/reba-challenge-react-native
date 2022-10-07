@@ -14,7 +14,7 @@ interface ListItemProps {
 }
 
 
-const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
+const ListCustomItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
 
     const [favorite, setFavorite] = useState<boolean>(isFavorite)
 
@@ -81,7 +81,7 @@ const ListItem = ({item, isFavorite, onPress = () => null}: ListItemProps) => {
     );
 }
 
-export default memo(ListItem);
+export default memo(ListCustomItem);
 
 
 const styles = StyleSheet.create({
