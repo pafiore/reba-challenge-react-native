@@ -11,7 +11,7 @@ Lista             |  Detalle
 2. Deploy Android **(*)**: `$ npm run android`
 3. Deploy iOS: `$ npm run ios`
 
-**(*)** Si se intenta hacer el deploy desde Visual Code, se debe especificar el path del JDK en el archivo **\android\gradle.properties**. <br />
+**(*)** Si se intenta hacer el deploy desde Visual Code (en un entorno Windows), se debe especificar el path del JDK en el archivo **\android\gradle.properties**. <br />
 Ver línea 44 de dicho archivo:<br />
 `org.gradle.java.home=INGRESAR_PATH` <sub>_(Ejemplo: C:\\Program Files\\Java\\jdk-11)_</sub>
 
