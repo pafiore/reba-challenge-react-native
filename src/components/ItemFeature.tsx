@@ -16,7 +16,7 @@ const ItemFeature = ({icon, label, value}: ItemFeatureProps) => {
   
     return (
         <ListItem bottomDivider>
-            <Icon name={icon} style={styles.icon} />
+            <Icon name={icon} style={styles.icon} testID="iconDetail" />
             <ListItem.Content>
                 <ListItem.Title>{label}</ListItem.Title>
             </ListItem.Content>

@@ -21,6 +21,7 @@ const ErrorConnection = ({ onPress = () => null }: ErrorConnectionProps) => {
                     name='spinner-refresh'
                     style={styles.iconRefresh}
                     onPress={() => onPress()}
+                    testID="iconRefresh"
                 />
             </Animatable.View>
 
