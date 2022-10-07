@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TIME_OUT_END_POINT } from '../constants';
 
 const useFetch = <T>(url: string) => {
 
@@ -8,8 +9,12 @@ const useFetch = <T>(url: string) => {
     const [apiCall, retryApiCall] = useState<boolean>(false);
 
 	useEffect(() => {
+
+        // Timeout EndPoint
+        let controller = new AbortController()
+        setTimeout(() => controller.abort(), TIME_OUT_END_POINT); 
         
-        fetch(url)
+        fetch(url, {signal: controller.signal})
             .then(res => res.json())
             .then(json => {
                 // WORKAROUND: dado que la API devuelve más de un nivel en la estructura del JSON, segun se invoque a la
